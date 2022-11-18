@@ -3,8 +3,7 @@ import { PageSeo } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
-import Tweet from '@/components/Tweet'
-import { getTweets } from '@/lib/twitter'
+
 import ProjectCard from '@/components/ProjectCard'
 import projectsData from '@/data/projectsData'
 import Slider from 'react-slick'
@@ -21,18 +20,14 @@ const settings = {
 
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter('blog')
-  const tweets = await getTweets([
-    '1190125711467655169',
-    '1352315936808837123',
-    '1326969029140025351',
-  ])
+  
 
   return {
-    props: { tweets, posts },
+    props: { posts },
   }
 }
 
-export default function Home({ posts, tweets }) {
+export default function Home({ posts }) {
   return (
     <>
       <PageSeo
@@ -70,14 +65,14 @@ export default function Home({ posts, tweets }) {
                             >
                               {title}
                             </Link>
-                            {/* <dl>
+                           
                       <dt className="sr-only">Published on</dt>
                       <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                         <time dateTime={date}>
                           {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                         </time>
                       </dd>
-                    </dl> */}
+                   
                           </h2>
                           <div className="flex flex-wrap mt-1">
                             {tags.map((tag) => (
@@ -120,7 +115,7 @@ export default function Home({ posts, tweets }) {
       )}
       <h1 className="text-3xl font-extrabold pt-10 pb-4">Recent Projects</h1>
 
-      {/* <ProjectCard
+      <ProjectCard
         title="project 1"
         description="asdfsf"
         href="https://thientran.me"
@@ -164,13 +159,11 @@ export default function Home({ posts, tweets }) {
         >
           More Projects &rarr;
         </Link>
-      </div> */}
+      </div>
 
       <h1 className="text-3xl font-extrabold pt-10">Latest Tweets</h1>
 
-      {tweets.map((tweet) => (
-        <Tweet key={tweet.id} {...tweet} />
-      ))}
+      
       <div className="flex justify-end text-base font-medium leading-6">
         <Link
           href="https://twitter.com/thienmtran"
